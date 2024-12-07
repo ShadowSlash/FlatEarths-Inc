@@ -1,17 +1,12 @@
-Project Group -
+# Project Group ✅
 
-Leo
-Eoghan
-Noah
+- **Leo**: Middle
+- **Eoghan**: Frontend
+- **Noah**: Backend
 
-Base idea -
+# Base idea 💡
 
-online service using ai for flat earthers
+- **online service using ai for flat earthers**
 
-Web Name = The Flat Truth
-
-FrontEnd - Eoghan
-
-Middle - Leo
-
-BackEnd - Noah
+# Web Name 🗺️
+- **The Flat Truth**
