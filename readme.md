@@ -3,6 +3,7 @@
 - **Leo**: Middle
 - **Eoghan**: Frontend
 - **Noah**: Backend
+- **Matthew**: Helper
 
 # Base idea 💡
 
