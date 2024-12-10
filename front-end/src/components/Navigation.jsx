@@ -10,10 +10,10 @@ import {
 } from "@material-tailwind/react";
 
 import { useNavigate, Link } from "react-router-dom";
+import logo from "../assets/logo_the_flat_truth.png";
 
 import { useUser } from "../contexts/UserContext";
 
-import logo from "../assets/step8up-logo.png";
 
 export default function Navigation() {
   const [openNav, setOpenNav] = React.useState(false);
