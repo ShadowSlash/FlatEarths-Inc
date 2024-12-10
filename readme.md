@@ -6,7 +6,7 @@
 
 # Base idea 💡
 
-- **online service using ai for flat earthers**
+- **Online service using ai for flat earthers**
 
 # Web Name 🗺️
 - **The Flat Truth**
