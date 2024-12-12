@@ -15,6 +15,14 @@ from django.contrib.auth import authenticate
 
 from .utils import generate_otp
 import pyotp
+import requests
+from django.conf import settings
+from django.shortcuts import redirect
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.contrib import messages
 
 @swagger_auto_schema(method='post',request_body=LoginSerializer)
 @api_view(['POST'])
@@ -154,3 +162,61 @@ def verify_otp_login(request):
             "status": False,
             "message": "Invalid OTP"
         }, status=400)
+        
+def discord_login(request):
+    # url to discords auth page
+    discord_auth_url = (
+        f"https://discord.com/api/oauth2/authorize?client_id={settings.DISCORD_CLIENT_ID}"
+        f"&redirect_uri={settings.DISCORD_REDIRECT_URI}"
+        f"&response_type=code&scope=identify"
+    )
+    return redirect(discord_auth_url)
+
+def discord_callback(request):
+    # handle the callback from discord
+    code = request.GET.get('code')
+    if not code:
+        return JsonResponse({'error': 'No code provided'}, status=400)
+
+    # exchange the code for an access token
+    token_url = 'https://discord.com/api/oauth2/token'
+    data = {
+        'client_id': settings.DISCORD_CLIENT_ID,
+        'client_secret': settings.DISCORD_CLIENT_SECRET,
+        'grant_type': 'authorization_code',
+        'code': code,
+        'redirect_uri': settings.DISCORD_REDIRECT_URI,
+        'scope': 'identify',
+    }
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    response = requests.post(token_url, data=data, headers=headers)
+
+    if response.status_code != 200:
+        return JsonResponse({'error': 'Failed to get token'}, status=400) # uh oh!
+
+    access_token = response.json().get('access_token')
+
+    # fetch details from discord
+    user_url = 'https://discord.com/api/users/@me'
+    headers = {'Authorization': f'Bearer {access_token}'}
+    user_response = requests.get(user_url, headers=headers)
+
+    if user_response.status_code != 200:
+        return JsonResponse({'error': 'Failed to fetch user data'}, status=400)
+
+    user_data = user_response.json()
+    discord_id = user_data['id']
+    username = user_data['username']
+    discriminator = user_data['discriminator']
+
+    # store user session or database entry
+    request.session['discord_id'] = discord_id
+    request.session['username'] = username
+    request.session['discriminator'] = discriminator
+    
+    # now we need to get the profile pic
+    avatar = user_data['avatar']
+    pfp_url = f"https://cdn.discordapp.com/avatars/{discord_id}/{avatar}.png" # pretty sure thats correct 
+
+    
+    return redirect('/dashboard/')
