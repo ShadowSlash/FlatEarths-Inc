@@ -13,9 +13,9 @@ const RightSidebar = () => {
                 <h3 className="font-bold text-xl mb-4">Friends List</h3>
                 <nav>
                      <ul>
-                        <li><a href="/friends/john" className="block mb-2 text-blue-gray-600">John Doe</a></li>
-                        <li><a href="/friends/jane" className="block mb-2 text-blue-gray-600">Janet Smith</a></li>
-                        <li><a href="/friends/mark" className="block mb-2 text-blue-gray-600">Eli Musket</a></li>
+                        <li className="hover:bg-[#8ED5ED] p-2"><a href="/friends/john" className="block mb-2 text-blue-gray-600">John Doe</a></li>
+                        <li className="hover:bg-[#8ED5ED] p-2"><a href="/friends/jane" className="block mb-2 text-blue-gray-600">Janet Smith</a></li>
+                        <li className="hover:bg-[#8ED5ED] p-2"><a href="/friends/mark" className="block mb-2 text-blue-gray-600">Eli Musket</a></li>
                     </ul>
                 </nav>
             </div>

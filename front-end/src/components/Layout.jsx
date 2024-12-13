@@ -16,7 +16,7 @@ const Layout = ({ children }) => {
 	}
 /////---------------------------------The Layout component to manipulate the page structure ---------------------------------////
 return (
-    <div className="flex flex-col min-h-screen">  {/* The outer container uses flex column */}
+    <div className="flex flex-col min-h-screen bg-[#2F3749]text-white  ">  {/* The outer container uses flex column */}
       
       {/* Navigation at the top */}
       <Navigation />  
@@ -25,7 +25,7 @@ return (
       <div className="flex flex-1"> {/* This is a flex container for sidebars and main content */}
         
         {/* Left Sidebar */}
-        <div className="w-1/5 bg-gray-200"> {/* Left sidebar. Th */}
+        <div className="w-1/6 bg-[#395E7A]  p-6 shadow-lg" > {/* Left sidebar. Th */}
           <LeftSidebar />
         </div>
         
@@ -35,7 +35,7 @@ return (
         </div>
         
         {/* Right Sidebar */}
-        <div className="w-1/7 bg-gray-200"> {/* Right sidebar */}
+        <div className="w-1/6 bg-gray-200"> {/* Right sidebar */}
           <RightSidebar />
         </div>
       </div>
