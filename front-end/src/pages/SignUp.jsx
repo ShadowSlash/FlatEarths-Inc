@@ -13,7 +13,7 @@ import {
 } from "@material-tailwind/react";
 
 import { useUser } from '../contexts/UserContext';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navigation';
 
 const SignUpPage = () => {
   const [email, setEmail] = useState('');

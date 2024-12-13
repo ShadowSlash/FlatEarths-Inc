@@ -12,7 +12,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { styled, alpha } from '@mui/material/styles'
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navigation';
 
 
 import { useUser } from '../contexts/UserContext';
