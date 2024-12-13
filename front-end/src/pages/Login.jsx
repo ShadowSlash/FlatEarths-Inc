@@ -11,8 +11,12 @@ import {
   Checkbox,
   Button,
 } from "@material-tailwind/react";
+import { styled, alpha } from '@mui/material/styles'
+import Navbar from '../components/Navbar';
+
 
 import { useUser } from '../contexts/UserContext';
+
 
 const LoginPage = () => {
 
@@ -53,58 +57,35 @@ const LoginPage = () => {
   };
 
   return (
-     <section className="grid text-center h-screen items-center p-8 justify-center">
+    <>
+      <Navbar />  {/*<<<------------This adds navbar to the login page*/}
+      <section className="grid text-center h-screen items-center p-8 justify-center mt-20">  {/* Added margin-top to make space for fixed navbar */}
         <Card className="w-96">
-        <CardHeader
-            variant="gradient"
-            color="gray"
-            className="mb-4 grid h-28 place-items-center"
-        >
-            <Typography variant="h3" color="white">
-            Log In
-            </Typography>
-        </CardHeader>
-        <CardBody className="flex flex-col gap-4">
-            <Input 
-                label="User Name" 
-                size="lg"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)} />
-            <Input 
-                label="Password" 
-                size="lg" 
-                type='password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                />
+          <CardHeader variant="gradient" color="gray" className="mb-4 grid h-28 place-items-center">
+            <Typography variant="h3" color="white">Log In</Typography>
+          </CardHeader>
+          <CardBody className="flex flex-col gap-4">
+            <Input label="User Name" size="lg" value={userName} onChange={(e) => setUserName(e.target.value)} />
+            <Input label="Password" size="lg" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            {error && <Typography color="red" className="mt-2">{error}</Typography>}
             <div className="-ml-2.5">
-            <Checkbox label="Remember Me" />
+              <Checkbox label="Remember Me" />
             </div>
-        </CardBody>
-        <CardFooter className="pt-0">
-            <Button 
-              variant="gradient" 
-              fullWidth
-              onClick={onClickLogin}
-              >
-            Log In
-            </Button>
+          </CardBody>
+          <CardFooter className="pt-0">
+            <Button variant="gradient" fullWidth onClick={onClickLogin}>Log In</Button>
             <Typography variant="small" className="mt-6 flex justify-center">
-            Don&apos;t have an account?
-            <Typography
-                as="a"
-                href="/signup"
-                variant="small"
-                color="blue-gray"
-                className="ml-1 font-bold"
-            >
+              Don&apos;t have an account?
+              <Typography as="a" href="/signup" variant="small" color="blue-gray" className="ml-1 font-bold">
                 Sign Up
+              </Typography>
             </Typography>
-            </Typography>
-        </CardFooter>
+          </CardFooter>
         </Card>
-    </section>
+      </section>
+    </>
   );
 };
+
 
 export default LoginPage;

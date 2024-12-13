@@ -57,7 +57,7 @@ export default function Navigation() {
               href="/"
               className="mr-4 cursor-pointer py-1.5 font-medium"
             >
-              React Tech Blog
+              The Flat Truth
             </Typography>
           </div>
           <div className="flex items-center gap-4">
