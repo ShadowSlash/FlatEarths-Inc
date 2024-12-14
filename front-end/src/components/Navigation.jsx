@@ -45,23 +45,23 @@ export default function Navigation() {
   );
 
   return (
-    <div className="-m-2 max-h-[768px] w-[calc(100%+48px)] overflow-scroll">
+    <div className="bg-[#8CCDE0] -m-2 max-h-[768px] w-[calc(100%+48px)] overflow-scroll">
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none py-2 lg:px-8 lg:py-4">
         <div className="flex items-center justify-around text-blue-gray-900">
           <div className="flex items-center gap-4">
             <Link to="/">
-              <img src={logo} alt="logo" className="h-8" />
+              <img src={logo} alt="logo" className="h-12 lg:h-16" />
             </Link>
             <Typography
               as="a"
               href="/"
-              className="mr-4 cursor-pointer py-1.5 font-medium"
+              className="mr-4 cursor-pointer py-1.5 font-semibold text-4xl text-green-800 uppercase tracking-wide"
             >
-              React Tech Blog
+              The Flat Truth
             </Typography>
           </div>
           <div className="flex items-center gap-4">
-            <div className="relative flex w-full gap-2 md:w-max">
+            <div className="relative flex w-full gap-2 md:w-max bg-blue-gray-100">
               <Input
                 type="search"
                 color="black"
@@ -176,3 +176,4 @@ export default function Navigation() {
     </div>
   );
 }
+
