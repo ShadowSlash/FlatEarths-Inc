@@ -50,12 +50,12 @@ export default function Navigation() {
         <div className="flex items-center justify-around text-blue-gray-900">
           <div className="flex items-center gap-4">
             <Link to="/">
-              <img src={logo} alt="logo" className="h-16" />
+              <img src={logo} alt="logo" className="h-12 lg:h-16" />
             </Link>
             <Typography
               as="a"
               href="/"
-              className="mr-4 cursor-pointer py-1.5 font-medium text-2xl text-green-800"
+              className="mr-4 cursor-pointer py-1.5 font-semibold text-4xl text-green-800 uppercase tracking-wide"
             >
               The Flat Truth
             </Typography>
