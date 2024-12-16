@@ -24,6 +24,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 
+import random
+
 @swagger_auto_schema(method='post',request_body=LoginSerializer)
 @api_view(['POST'])
 def loginpost(request):
@@ -220,3 +222,17 @@ def discord_callback(request):
 
     
     return redirect('/dashboard/')
+
+# testing before adding real jokes or using a 3rd party api
+jokes = [
+    "testing, flat earth joke 1",
+    "testing, flat earth joke 2",
+    "testing, flat earth joke 3",
+    "testing, flat earth joke 4",
+    "testing, flat earth joke 5",
+]
+
+@api_view(['GET'])
+def generate_joke(request):
+    joke = random.choice(jokes)
+    return Response({"status": True, "joke": joke})
