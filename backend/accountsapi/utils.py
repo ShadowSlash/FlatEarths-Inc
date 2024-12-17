@@ -17,8 +17,8 @@ def generate_otp(user_email):
     return otp
 
 from django.urls import path
-from .views import generate_joke
+# from .views import generate_joke
 
-urlpatterns = [
-    path('generate-joke/', generate_joke, name='generateJoke'),
-]
+# urlpatterns = [
+#     path('generate-joke/', generate_joke, name='generateJoke'),
+# ]
