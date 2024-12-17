@@ -25,6 +25,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 
 import random
+import openai
 
 @swagger_auto_schema(method='post',request_body=LoginSerializer)
 @api_view(['POST'])
@@ -223,7 +224,7 @@ def discord_callback(request):
     
     return redirect('/dashboard/')
 
-# testing before adding real jokes or using a 3rd party api
+'''# testing before adding real jokes or using a 3rd party api
 jokes = [
     "testing, flat earth joke 1",
     "testing, flat earth joke 2",
@@ -231,8 +232,36 @@ jokes = [
     "testing, flat earth joke 4",
     "testing, flat earth joke 5",
 ]
+'''
+openai.api_key = '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'
 
 @api_view(['GET'])
 def generate_joke(request):
-    joke = random.choice(jokes)
+    '''joke = random.choice(jokes)
+    return Response({"status": True, "joke": joke})''' # this is the easy method
+    # but we want to use a 3rd party api bc its cooler
+    
+    '''===================================================================================================================================='''
+    
+    '''response = requests.get("https://offical-joke-api.appspot.com/random_joke") # nvm this api is terrible, i'll leave this here incase we want to use it later
+    
+    if response.status_code == 200:
+        data = response.json()
+        joke = f"{data['setup']} - {data['punchline']}"
+        
+        # this is the magic that checks if its a flat earth joke
+        if "flat" in joke.lower() or "earth" in joke.lower():
+            return Response({"status": True, "joke": joke})
+        else:
+            return Response({"status": False, "message": f"Oops! a flat earth joke was not generated: {joke}. Try again!"})
+    else:
+        return Response({"status": False, "message": "Failed to fetch joke data"}, status = response.status_code)'''
+        
+    '''====================================================================================================================================='''
+        
+    response = openai.ChatCompletion.create(model = "gpt-3.5-turbo", messages = [{"role": "user", "content": "tell me a flat earth joke"}])
+    joke = response['choices'][0]['message']['content']
     return Response({"status": True, "joke": joke})
+    # now we're extra fancy using chatgpt :D
+    
+    
