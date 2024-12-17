@@ -23,7 +23,7 @@ const RightSidebar = () => {
 
              {/* ---------------------------- AI Component Component --------------------------------------------  */}
              <div className="flex flex-col mb-6">
-                <h3 className="font-bold text-xl text-[#48D591] mb-4">Conspiracy generator</h3>
+                <h3 className="font-bold text-xl text-[#48D591] mb-4">Conspiracy Generator</h3>
                
             </div>
 

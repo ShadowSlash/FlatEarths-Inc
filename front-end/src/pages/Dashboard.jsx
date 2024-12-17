@@ -9,7 +9,7 @@ const DashboardPage = () =>{
   return (
     <Layout>
        <div className="container mx-auto px-8 py-5">
-          <UserProfile sername={username} avatar={avatar} />
+          <UserProfile username={username} avatar={avatar} />
           <BlogList />
         </div>
     </Layout>

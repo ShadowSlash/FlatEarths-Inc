@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../mock/mock";                      //<------------Using the Mock api script whilst the backend work is in progress
+import api from "../api/axios.jsx";                      //<------------Using the Mock api script whilst the backend work is in progress
 import { useNavigate } from "react-router-dom";
 import BlogCard from "../components/BlogCard";
 
