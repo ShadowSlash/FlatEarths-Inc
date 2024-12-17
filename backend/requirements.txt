@@ -7,3 +7,5 @@ django-otp
 email-validator
 django-environ
 django-cors-headers
+requests
+openai

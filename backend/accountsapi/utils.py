@@ -15,3 +15,10 @@ def generate_otp(user_email):
     from_email = settings.DEFAULT_FROM_EMAIL
     send_mail(subject, message, from_email, [user_email])
     return otp
+
+from django.urls import path
+# from .views import generate_joke
+
+# urlpatterns = [
+#     path('generate-joke/', generate_joke, name='generateJoke'),
+# ]
