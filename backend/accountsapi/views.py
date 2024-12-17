@@ -233,7 +233,7 @@ jokes = [
     "testing, flat earth joke 5",
 ]
 '''
-openai.api_key = ''
+# openai.api_key = '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'
 
 @api_view(['GET'])
 def generate_joke(request):
