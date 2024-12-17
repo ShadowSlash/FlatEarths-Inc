@@ -8,4 +8,4 @@ email-validator
 django-environ
 django-cors-headers
 requests
-openai
+openai==0.28

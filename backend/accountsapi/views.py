@@ -25,7 +25,6 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 
 import random
-import openai
 
 @swagger_auto_schema(method='post',request_body=LoginSerializer)
 @api_view(['POST'])
@@ -210,58 +209,54 @@ def discord_callback(request):
     user_data = user_response.json()
     discord_id = user_data['id']
     username = user_data['username']
-    discriminator = user_data['discriminator']
 
-    # store user session or database entry
-    request.session['discord_id'] = discord_id
-    request.session['username'] = username
-    request.session['discriminator'] = discriminator
+    # # store user session or database entry
+    # request.session['discord_id'] = discord_id
+    # request.session['username'] = username
+    # request.session['discriminator'] = discriminator
     
     # now we need to get the profile pic
     avatar = user_data['avatar']
-    pfp_url = f"https://cdn.discordapp.com/avatars/{discord_id}/{avatar}.png" # pretty sure thats correct 
+    pfp_url = f"https://cdn.discordapp.com/avatars/{discord_id}/{avatar}?size=1024" # pretty sure thats correct 
 
-    
-    return redirect('/dashboard/')
+    return JsonResponse({'username': username, 'avatar': pfp_url}, status=200)
 
-'''# testing before adding real jokes or using a 3rd party api
 jokes = [
-    "testing, flat earth joke 1",
-    "testing, flat earth joke 2",
-    "testing, flat earth joke 3",
-    "testing, flat earth joke 4",
-    "testing, flat earth joke 5",
+    "Why don't flat-earthers argue about the Earth's edges? Because they don't want to fall out of the group chat!",
+    "Flat Earth meetings are always packed—it's hard to find room when everyone's on the same plane.",
+    "I told my flat-earther friend the Earth is round. He said, 'I'm not falling for that again!'",
+    "Why don't flat-earthers go on vacations? They're afraid of falling off the itinerary.",
+    "Flat-earthers' favorite exercise? Running laps—on a very flat track, of course.",
+    "Flat-earthers don't believe in gravity. They say, 'Things just fall because they're tired of floating!'",
+    "How do flat-earthers measure time? They go by sun-dial… as long as it's flat.",
+    "Flat-earthers love pancakes—finally, food they can relate to!",
+    "I asked a flat-earther what's under the Earth. He said, 'A really big coaster.'",
+    "What's a flat-earther's favorite TV show? Edge of the World, streaming live every day.",
+    "Why did the flat-earther become a photographer? He wanted to focus on the horizon.",
+    "Flat-earthers don't believe in global warming—they say it's just 'flat out hot!'",
+    "How did the flat-earther react when I said Earth has poles? 'Poles are just vertical lies!'",
+    "Why don't flat-earthers trust maps? They always look too shady around the edges.",
+    "Flat-earthers think space exploration is fake because nobody's shown them a picture of the Earth from *below*.",
+    "Flat-earthers are great at balancing budgets—they only work in straight lines!",
+    "Why don't flat-earthers play golf? They're worried their ball might roll off the green.",
+    "I asked a flat-earther for proof of their claims. He handed me a leveler and said, 'See? Perfectly flat!'",
+    "Flat-earthers don't trust pilots—they think they're just circling us in loops.",
+    "Why did the flat-earther open a bakery? To prove the Earth is as flat as his best bread.",
+    "Flat-earthers believe the world is a giant pizza: no crust, just toppings.",
+    "I told a flat-earther the Earth spins on an axis. He said, 'I didn't feel a thing!'",
+    "What's a flat-earther's favorite vehicle? A hovercraft—no curves, just smooth sailing.",
+    "Why did the flat-earther bring a ruler to the beach? To prove the horizon doesn't bend!",
+    "What's a flat-earther's favorite sport? Table tennis—it's the only game that respects a flat surface.",
+    "Why do flat-earthers avoid mountaintops? They say it's too 'edge-ucational.'",
+    "Flat-earthers always win arguments: they keep their theories flat and simple.",
+    "Why do flat-earthers hate globe-trotting? 'It's a roundabout way to see the world!'",
+    "What does a flat-earther bring to a science fair? A pizza box labeled 'Earth Model.'",
+    "Flat-earthers are the best at poker: they never play with curves, just straight faces."
 ]
-'''
-openai.api_key = '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'
+
 
 @api_view(['GET'])
 def generate_joke(request):
-    '''joke = random.choice(jokes)
-    return Response({"status": True, "joke": joke})''' # this is the easy method
-    # but we want to use a 3rd party api bc its cooler
-    
-    '''===================================================================================================================================='''
-    
-    '''response = requests.get("https://offical-joke-api.appspot.com/random_joke") # nvm this api is terrible, i'll leave this here incase we want to use it later
-    
-    if response.status_code == 200:
-        data = response.json()
-        joke = f"{data['setup']} - {data['punchline']}"
-        
-        # this is the magic that checks if its a flat earth joke
-        if "flat" in joke.lower() or "earth" in joke.lower():
-            return Response({"status": True, "joke": joke})
-        else:
-            return Response({"status": False, "message": f"Oops! a flat earth joke was not generated: {joke}. Try again!"})
-    else:
-        return Response({"status": False, "message": "Failed to fetch joke data"}, status = response.status_code)'''
-        
-    '''====================================================================================================================================='''
-        
-    response = openai.ChatCompletion.create(model = "gpt-3.5-turbo", messages = [{"role": "user", "content": "tell me a flat earth joke"}])
-    joke = response['choices'][0]['message']['content']
-    return Response({"status": True, "joke": joke})
-    # now we're extra fancy using chatgpt :D
-    
+    joke = random.choice(jokes)
+    return JsonResponse({"status": True, "joke": joke}, status=200)
     
