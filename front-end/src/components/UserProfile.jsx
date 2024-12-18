@@ -5,13 +5,13 @@ import {
   CardBody,
   Typography,
 } from "@material-tailwind/react";
-
+import axios from 'axios';
 import { useUser } from '../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 
 function UserProfile() {
-
   const { user } = useUser();
+ 
   const navigate = useNavigate();
 
   return (

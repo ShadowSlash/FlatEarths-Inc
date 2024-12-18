@@ -18,6 +18,7 @@ const AppRoutes = () => (
       <Route path="/blogs" element={<BlogList />} />
       <Route path="/new" element={<NewBlog />} />
       <Route path="/blog/:id" element={<BlogDetail />} />
+      <Route path="/discordCallback" element={<DiscordCallback />}/>
     </Routes>
   </Router>
 );
