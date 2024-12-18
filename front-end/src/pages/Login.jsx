@@ -30,7 +30,7 @@ const LoginPage = () => {
 
   //------------------------Alternate login using discord. ------------------------------------------------------------------//
   const redirectToDiscord = async () => {
-    const discord_url = 'http://localhost:8000/login/discord';         //URL to discord OAuth2 authentication. we need to link this to backend Noah.
+    const discord_url = 'http://127.0.0.1:8000/account/discord/login';         //URL to discord OAuth2 authentication. we need to link this to backend Noah.
     try {
       const response = await fetch(discord_url, { method: 'HEAD' });  // Try catch to fetch the discord url
       if (response.ok) {                                              //If fetch is successful (200 code)
