@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import BlogList from './pages/BlogList';
 import NewBlog from './pages/NewBlog';
 import BlogDetail from './pages/BlogDetail';
+import DiscordCallbackPage from './components/Authentication/DiscordCallback';
 
 const AppRoutes = () => (
   <Router>
@@ -16,7 +17,8 @@ const AppRoutes = () => (
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/blogs" element={<BlogList />} />
       <Route path="/new" element={<NewBlog />} />
-      <Route path="/blog/:id" element={<BlogDetail />} />
+      <Route path="/discordcallback" element={<DiscordCallbackPage />} />
+
     </Routes>
   </Router>
 );
