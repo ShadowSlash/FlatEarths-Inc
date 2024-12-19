@@ -9,6 +9,7 @@ const Layout = ({ children }) => {
   const { user } = useUser();
   const navigate = useNavigate();
 
+
   if (!user.isLoggedIn) {
     navigate("/login");
   }

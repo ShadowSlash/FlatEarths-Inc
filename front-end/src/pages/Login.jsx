@@ -16,6 +16,7 @@ import Navbar from '../components/Navigation';
 
 
 import { useUser } from '../contexts/UserContext';
+import axios from 'axios';
 
 
 const LoginPage = () => {
@@ -29,21 +30,12 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   //------------------------Alternate login using discord. ------------------------------------------------------------------//
-  const redirectToDiscord = async () => {
-    const discord_url = 'http://localhost:8000/login/discord';         //URL to discord OAuth2 authentication. we need to link this to backend Noah.
-    try {
-      const response = await fetch(discord_url, { method: 'HEAD' });  // Try catch to fetch the discord url
-      if (response.ok) {                                              //If fetch is successful (200 code)
-        window.location.href = discord_url;                      // // Redirect to Discord login        
-      } else {
-        console.error('Discord login URL is not reachable:', response.status);  //else flag an error 
-      }
-    } catch (error) {
-      console.error('Error reaching the Discord login URL:', error);
-    }
-   
+  const redirectToDiscord = () => {
+    const discord_url = 'http://127.0.0.1:8000/account/discord/login';   // URL to backend OAuth2 Discord login
+    window.location.href = discord_url;  // Directly redirect to Discord login
   };
 
+  
   const onClickLogin = async (e) => {
 
     e.preventDefault();

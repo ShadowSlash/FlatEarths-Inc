@@ -171,4 +171,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 DISCORD_CLIENT_ID = '1316139650246512711'
 DISCORD_CLIENT_SECRET = 'TuTZ87B9CLqsjtZW4-z78lpHi0mFbcEk'
-DISCORD_REDIRECT_URI = 'http://127.0.0.1:8000/discord/api/v1/callback'
+DISCORD_REDIRECT_URI = 'http://127.0.0.1:8000/account/discord/api/v1/callback'
