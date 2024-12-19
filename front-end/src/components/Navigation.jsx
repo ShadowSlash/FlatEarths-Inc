@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Avatar,
   Navbar,
@@ -12,21 +12,33 @@ import {
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../assets/logo_the_flat_truth.png";
 
+
 import { useUser } from "../contexts/UserContext";
 
 export default function Navigation() {
   const [openNav, setOpenNav] = React.useState(false);
+  
+  // Capture a search query entered by the user
+  const [searchQuery, setSearchQuery] = useState(""); 
 
   const navigate = useNavigate();
-
   const { user, logoutUser } = useUser();
 
+  // Close mobile nav when window is resized above 960px
   React.useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
+
+  //-----------------------------------------Handle the search function -----------------------------------///
+  const handleSearch = () => {
+    if (searchQuery.trim()) {  // Check if the query is not empty
+      // Navigate to the search results page with the search query as a URL parameter
+      navigate(`/search?q=${searchQuery}`);
+    }
+  };
 
   const navList = (
     <ul className="mt-10 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -61,19 +73,25 @@ export default function Navigation() {
           </div>
           <div className="flex items-center gap-4">
             <div className="relative flex w-full gap-2 md:w-max bg-[#3E3D4D]">
+              {/* Search Input field */}
               <Input
                 type="search"
                 color="white"
                 label="Find the Truth..."
                 className="pr-30"
+                value={searchQuery}  // ------ Bind searchquerry function to input field 
+                onChange={(e) => setSearchQuery(e.target.value)}  //----- Update searchQuery state as user types
                 containerProps={{
                   className: "min-w-[288px]",
                 }}
               />
+              {/*  Search Button with onClick handler */}
               <Button
                 size="sm"
                 color="blue"
                 className="!absolute right-1 top-1 rounded"
+                aria-label="Search"
+                onClick={handleSearch}  // -----------------------Event handler that triggers the handleSearch function when clicked
               >
                 Search
               </Button>
@@ -81,7 +99,7 @@ export default function Navigation() {
           </div>
           <div className="flex items-center gap-4 mr-4">
             <div className="flex items-center gap-x-1">
-              {user && user.isLoggedIn && (
+              {user && user.isLoggedIn ? (
                 <>
                   <Button
                     variant="text"
@@ -98,28 +116,26 @@ export default function Navigation() {
                     variant="rounded"
                   />
                 </>
+              ) : (
+                <>
+                  <Button
+                    variant="text"
+                    size="sm"
+                    className="hidden lg:inline-block"
+                    onClick={() => navigate("/login")}
+                  >
+                    <span>Log In</span>
+                  </Button>
+                  <Button
+                    variant="gradient"
+                    size="sm"
+                    className="hidden lg:inline-block"
+                    onClick={() => navigate("/signup")}
+                  >
+                    <span>Sign Up</span>
+                  </Button>
+                </>
               )}
-              {!user ||
-                (!user.isLoggedIn && (
-                  <>
-                    <Button
-                      variant="text"
-                      size="sm"
-                      className="hidden lg:inline-block"
-                      onClick={() => navigate("/login")}
-                    >
-                      <span>Log In</span>
-                    </Button>
-                    <Button
-                      variant="gradient"
-                      size="sm"
-                      className="hidden lg:inline-block"
-                      onClick={() => navigate("/signup")}
-                    >
-                      <span>Sign Up</span>
-                    </Button>
-                  </>
-                ))}
             </div>
             <IconButton
               variant="text"
@@ -163,12 +179,35 @@ export default function Navigation() {
         <MobileNav open={openNav}>
           {navList}
           <div className="flex items-center gap-x-1">
-            <Button fullWidth variant="text" size="sm" className="">
-              <span>Log In</span>
-            </Button>
-            <Button fullWidth variant="gradient" size="sm" className="">
-              <span>Sign in</span>
-            </Button>
+            {!user || !user.isLoggedIn ? (
+              <>
+                <Button
+                  fullWidth
+                  variant="text"
+                  size="sm"
+                  onClick={() => navigate("/login")}
+                >
+                  <span>Log In</span>
+                </Button>
+                <Button
+                  fullWidth
+                  variant="gradient"
+                  size="sm"
+                  onClick={() => navigate("/signup")}
+                >
+                  <span>Sign Up</span>
+                </Button>
+              </>
+            ) : (
+              <Button
+                fullWidth
+                variant="text"
+                size="sm"
+                onClick={logoutUser}
+              >
+                <span>Log Out</span>
+              </Button>
+            )}
           </div>
         </MobileNav>
       </Navbar>

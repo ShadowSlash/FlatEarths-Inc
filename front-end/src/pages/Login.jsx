@@ -16,6 +16,7 @@ import Navbar from '../components/Navigation';
 
 
 import { useUser } from '../contexts/UserContext';
+import axios from 'axios';
 
 
 const LoginPage = () => {
@@ -30,18 +31,18 @@ const LoginPage = () => {
 
   //------------------------Alternate login using discord. ------------------------------------------------------------------//
   const redirectToDiscord = async () => {
-    const discord_url = 'http://localhost:8000/login/discord';         //URL to discord OAuth2 authentication. we need to link this to backend Noah.
+    const discord_url = 'http://127.0.0.1:8000/account/discord/login';         //URL to discord OAuth2 authentication. we need to link this to backend Noah.
     try {
-      const response = await fetch(discord_url, { method: 'HEAD' });  // Try catch to fetch the discord url
-      if (response.ok) {                                              //If fetch is successful (200 code)
-        window.location.href = discord_url;                      // // Redirect to Discord login        
+      const response = await axios.head(discord_url); // Axios HEAD request
+      
+      if (response.status === 200) {    // If the  status is equal to 200 
+        window.location.href = discord_url; // Redirect to Discord login
       } else {
-        console.error('Discord login URL is not reachable:', response.status);  //else flag an error 
+        console.error('Discord login URL is not reachable:', response.status); // Error if the status is not 200
       }
     } catch (error) {
-      console.error('Error reaching the Discord login URL:', error);
+      console.error('Error reaching the Discord login URL:', error); // Error handling catch
     }
-   
   };
 
   const onClickLogin = async (e) => {
