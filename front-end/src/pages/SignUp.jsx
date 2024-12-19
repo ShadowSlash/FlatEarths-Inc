@@ -67,7 +67,12 @@ const SignUpPage = () => {
     <>
       <Navbar />  {/* Navbar */}
 
-      <section className="grid text-center h-screen items-center p-10 justify-center mt-20">  
+      <section className="grid text-center h-screen items-center p-10 justify-center " 
+      style={{
+          backgroundImage: 'url(/src/assets/tom-carnegie-gkShnswb8jw-unsplash.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}>  
         <Card className="w-96">
           <CardHeader
             variant="gradient"

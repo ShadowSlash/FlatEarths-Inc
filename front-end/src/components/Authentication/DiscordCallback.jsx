@@ -1,38 +1,64 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useUser } from "../../contexts/UserContext";  // Corrected import
 
 const DiscordCallback = () => {
+  const { loginUser } = useUser();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);  // Track loading state
+  const [error, setError] = useState('');  // Store any errors
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const code = params.get('code'); // Get the 'code' parameter from the URL
-    
+    const code = params.get('code'); // Get the code parameter from the URL
+
     if (code) {
-      // Send the authorization code to your backend to exchange it for an access token
+      // Send the authorization code to your backend to exchange it for user data
       axios
-        .post('http://127.0.0.1:8000/account/discord/api/v1/callback', { code }) //<---------- Discord Callback API
+        .post('http://127.0.0.1:8000/account/discord/api/v1/callback', { code })
         .then((response) => {
-          if (response.data.status) {    // Store the Discord token in localStorage
-            localStorage.setItem('discordAuthToken', response.data.token);
-            navigate('/dashboard'); // Redirect the user to the dashboard
+          if (response.data.status === 'success') {
+            // Store user data from Discord in context
+            loginUser({
+              username: response.data.data.username,
+              avatar: response.data.data.avatar,  // Discord avatar
+              email: response.data.data.email || '',  // Discord email (if available)
+            });
+
+            localStorage.setItem('discordAuthToken', response.data.data.token);  // Save token
+            navigate('/dashboard');  // Redirect to dashboard
           } else {
-            console.error('Error handling Discord login');
-            navigate('/login'); // If there's an error, redirect to the login page
+            setError('Error during Discord login');  // Set error message
+            console.error('Error during Discord login');
+            setLoading(false);  // Stop loading state
+            navigate('/login');  // Redirect to login page
           }
         })
         .catch((error) => {
-          console.error('Error during Discord authentication:', error);
-          navigate('/login'); // Redirect to login if there's a failure
+          setError('Error during Discord login. Please try again.');  // Show error message
+          console.error('Error during Discord login:', error);
+          setLoading(false);  // Stop loading state
+          navigate('/login');  // Redirect to login page
         });
     } else {
-      console.error('No authorization code in URL');
-      navigate('/login'); // If no code, redirect to the login page
+      setError('No authorization code found.');  // Handle missing code scenario
+      setLoading(false);  // Stop loading state
+      navigate('/login');  // Redirect to login page
     }
-  }, [navigate]);
+  }, [navigate, loginUser]);
 
-  return <div>Loading...</div>; // Show a loading screen while the code is being exchanged
+  // If still loading, show a loading spinner or text
+  if (loading) {
+    return <div>Loading...</div>;  // Could be replaced with a spinner for a better UX
+  }
+
+  // If there's an error, display it
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  return null; // No need for a return value, as redirect happens immediately
 };
 
 export default DiscordCallback;

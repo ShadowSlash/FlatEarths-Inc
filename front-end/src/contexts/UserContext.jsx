@@ -1,5 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
-
+import React, { createContext, useState, useContext } from "react";
 
 // Create the context
 export const UserContext = createContext();
@@ -7,23 +6,28 @@ export const UserContext = createContext();
 const defaultUser = {
   username: "",
   email: "",
-  password: "",
+  avatar: "",  // Avatar is included here
   isLoggedIn: false,
-  avatar: "", // <----------------------------------------------Avi
 };
 
-// Theme provider component
+// UserProvider component
 export function UserProvider({ children }) {
-  const [user, setUser] = useState(defaultUser); // Default theme color is white 
+  const [user, setUser] = useState(defaultUser); // Set initial state to default user object
 
-   
-  const loginUser = (username) => {
-    setUser({ username: username, isLoggedIn: true });
-  }
+  // Function to log the user in (regular login or Discord login)
+  const loginUser = (userData) => {
+    setUser({
+      username: userData.username,
+      email: userData.email || '',  // Fallback if no email is provided
+      avatar: userData.avatar || '',  // Fallback if no avatar is provided
+      isLoggedIn: true,
+    });
+  };
 
+  // Function to log the user out
   const logoutUser = () => {
-    setUser(defaultUser);
-  }
+    setUser(defaultUser); // Reset to default user
+  };
 
   return (
     <UserContext.Provider value={{ user, loginUser, logoutUser }}>
@@ -32,4 +36,5 @@ export function UserProvider({ children }) {
   );
 }
 
+// Custom hook to use UserContext
 export const useUser = () => useContext(UserContext);

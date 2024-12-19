@@ -51,7 +51,12 @@ const SearchPage = () => {
   return (
     <>
       <Navbar /> {/* Navbar at the top */}
-      <section className="grid text-center h-screen items-center p-8 justify-center mt-20">
+      <section className="grid text-center h-screen items-center p-8 justify-center"
+      style={{
+        backgroundImage: 'url(/src/assets/spacex-VBNb52J8Trk-unsplash.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}>
         <Card className="w-96">
           <CardHeader variant="gradient" color="gray" className="mb-4 grid h-28 place-items-center">
             <Typography variant="h3" color="white">Search</Typography>
