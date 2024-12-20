@@ -18,6 +18,8 @@ import Navbar from '../components/Navigation';
 import { useUser } from '../contexts/UserContext';
 import axios from 'axios';
 
+import backgroundImage from '../assets/nasa-yZygONrUBe8-unsplash.jpg';
+
 
 const LoginPage = () => {
 
@@ -67,7 +69,12 @@ const LoginPage = () => {
   return (
     <>
       <Navbar />  {/*<<<------------This adds navbar to the login page*/}
-      <section className="grid text-center h-screen items-center p-8 justify-center mt-20">  {/* Added margin-top to make space for fixed navbar */}
+      <section className="grid text-center h-screen items-center p-8 justify-center mt-0" 
+      style={{
+                backgroundImage: `url(${backgroundImage})`,  
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}>  
         <Card className="w-96">
           <CardHeader variant="gradient" color="gray" className="mb-4 grid h-28 place-items-center">
             <Typography variant="h3" color="white">Log In</Typography>

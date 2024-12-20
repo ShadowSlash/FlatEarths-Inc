@@ -15,6 +15,8 @@ import {
 import { useUser } from '../contexts/UserContext';
 import Navbar from '../components/Navigation';
 
+import backgroundImage from '../assets/nasa-6-jTZysYY_U-unsplash.jpg';  //-----Background Image
+
 const SignUpPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -67,7 +69,11 @@ const SignUpPage = () => {
     <>
       <Navbar />  {/* Navbar */}
 
-      <section className="grid text-center h-screen items-center p-10 justify-center mt-20">  
+      <section className="grid text-center h-screen items-center p-10 justify-center mt-1" style={{
+                      backgroundImage: `url(${backgroundImage})`,  
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}>  
         <Card className="w-96">
           <CardHeader
             variant="gradient"

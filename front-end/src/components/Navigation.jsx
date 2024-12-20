@@ -24,7 +24,7 @@ export default function Navigation() {
   const navigate = useNavigate();
   const { user, logoutUser } = useUser();
 
-  // Close mobile nav when window is resized above 960px
+  //------------------------------- Close mobile nav when window is resized above 960px-----------------------------------
   React.useEffect(() => {
     window.addEventListener(
       "resize",
