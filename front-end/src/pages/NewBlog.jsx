@@ -96,7 +96,7 @@ const NewBlogPage = () =>{
           <div className="flex lg:gap-0 gap-6 flex-wrap justify-between items-center">
             <div className="flex items-center gap-3">
               <div>
-                <Typography color="blue-gray" variant="h6">
+                <Typography color="gray" variant="h6">
                   Write a new Blog Post
                 </Typography>
               </div>
@@ -104,13 +104,13 @@ const NewBlogPage = () =>{
           </div>
           <Typography
             variant="small"
-            className="font-normal text-gray-600 my-6"
+            className="font-normal text-black-600 my-6"
           >
             Enter a title and start writing your blog post.
           </Typography>
            <Typography
             variant="small"
-            className="font-normal text-gray-600 my-6"
+            className="font-normal text-red-600 my-6"
           > Hint: You can use Markdown to format your post.
           </Typography>
         </CardBody>
