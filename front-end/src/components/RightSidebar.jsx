@@ -1,13 +1,24 @@
-import React from "react";
-import Layout from "../components/Layout";
-import UserProfile from "../components/UserProfile";
-import BlogList from "../components/BlogList";
+import React, { useState } from "react";
+import axios from "axios";
 
 const RightSidebar = () => {
-  //Nested generate Conspiracy function
-  const generateConspiracy = () => {
-    alert("Generating a random conspiracy theory...");    /// <------------Replace with API from
-    
+  const [joke, setJoke] = useState(""); // State to hold the joke
+
+  // -------------------------- Function to fetch a random joke from the backend API --------------
+  const generateJoke = async () => {
+    try {
+      // Make sure the URL matches the correct backend endpoint for jokes
+      const response = await axios.get("http://localhost:8000/blogapp/generate-joke/");
+
+      if (response.data.status) {
+        setJoke(response.data.joke); // Set the joke in the state
+      } else {
+        alert("Failed to fetch a joke.");
+      }
+    } catch (error) {
+      console.error("Error fetching joke:", error);
+      alert("An error occurred while fetching the joke.");
+    }
   };
 
   return (
@@ -20,7 +31,7 @@ const RightSidebar = () => {
             <li className="hover:bg-[#49485a] p-2 rounded-lg">
               <a
                 href="/friends/john"
-                className="text-center  block my-1 text-[#62DD97] hover:text-[#26D9FF] transition-colors duration-300"
+                className="text-center block my-1 text-[#62DD97] hover:text-[#26D9FF] transition-colors duration-300"
               >
                 John Doe
               </a>
@@ -45,17 +56,24 @@ const RightSidebar = () => {
         </nav>
       </div>
 
-      {/* AI Component: Conspiracy generator */}
+      {/* AI Component: Joke generator */}
       <div className="flex flex-col mb-6">
-        <h3 className="text-center  font-bold text-xl text-[#17A9EE] mb-4">
-          Conspiracy Generator
+        <h3 className="text-center font-bold text-xl text-[#17A9EE] mb-4">
+          Generate a Conspiracy
         </h3>
         <button
-          onClick={generateConspiracy}
+          onClick={generateJoke} // Trigger joke fetch when clicked
           className="block my-1 text-[#62DD97] font-extrabold hover:text-[#26D9FF] transition-colors duration-300"
         >
           Generate Conspiracy
         </button>
+
+        {/* Display the joke if one is fetched */}
+        {joke && (
+          <div className="mt-4 text-center text-[#62DD97] font-medium">
+            <p>{joke}</p>
+          </div>
+        )}
       </div>
     </aside>
   );
