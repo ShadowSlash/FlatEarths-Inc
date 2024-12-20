@@ -85,6 +85,18 @@ function UserProfile() {
               </Button>
             </div>
           </div>
+
+          {/* New Section for Write a new Post button */}
+          <div className="hidden lg:flex lg:items-center lg:gap-6 mt-5">
+            <Button
+              variant="gradient"
+              size="sm"
+              className="hidden lg:inline-block"
+              onClick={() => navigate('/new')} // Navigate to 'new' page
+            >
+              <span>Write a new Post</span>
+            </Button>
+          </div>
         </CardBody>
       </Card>
     </section>
