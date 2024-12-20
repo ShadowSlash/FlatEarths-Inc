@@ -1,29 +1,33 @@
-import options from "../config/options";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-export const getChatGPTResponse = async (prompt) => {
-  try {
-    const requestBody = {
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
+const JokeGenerator = () => {
+  const [joke, setJoke] = useState('');
+
+  useEffect(() => {
+    // Function to fetch joke from the backend
+    const fetchJoke = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/blog/generate-joke/'); //------------------------backend api
+        if (response.data.status) {
+          setJoke(response.data.joke); // Set the joke
+        }
+      } catch (error) {
+        console.error('Error fetching joke:', error);
+      }
     };
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${options.CHATGPT_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestBody),
-    });
-    const data = await response.json();
-    return data.choices[0].message.content;
-  } catch (error) {
-    console.error("Error in /api/chatgpt:", error);
-    return `error: ${error}`;
-  }
+    // Fetch joke when component mounts
+    fetchJoke();
+  }, []); // Empty dependency array means it runs once when the component is mounted
+
+  return (
+    <div>
+      <h1>Random Joke</h1>
+      <p>{joke}</p>
+      <button onClick={() => window.location.reload()}>Get Another Joke</button>
+    </div>
+  );
 };
+
+export default JokeGenerator;

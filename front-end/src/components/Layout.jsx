@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#222] text-white">
+    <div className="flex flex-col min-h-screen bg-[#3E3D4D] text-white">
       {/* Outer container with flex column layout */}
       
       {/* Navigation at the top */}
@@ -26,21 +26,22 @@ const Layout = ({ children }) => {
       {/* Main content area with sidebars and content */}
       <div className="flex flex-1 overflow-hidden">
         {/* Left Sidebar */}
-        <div className="w-1/6 bg-[#2C2C2C] p-6 shadow-lg transition-transform transform hover:scale-105 duration-300">
+        <div className="w-1/6 bg-[#3E3D4D] p-6 shadow-inherit transition-transform transform hover:scale-105 duration-300">
           {/* Left Sidebar with padding and shadow */}
           <LeftSidebar />
         </div>
 
         {/* Main Content Area */}
         <div
-          className="flex-1 p-8 bg-[#1A1A1A] text-white rounded-lg shadow-lg"
+          className="flex-1 p-8 bg-[#3E3D4D] text-white rounded-lg shadow-lg"
           style={{
             backgroundImage: `url(${backgroundImage})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             transition: "opacity 2s ease-in-out",
+             borderRadius: "10%",
             opacity: 0.9,
-            backdropFilter: "blur(10px)", // Optional: Adds a blur effect to the background image
+            backdropFilter: "blur(10px)", // -----------------Adds a blur effect to the background image
           }}
         >
           {/* Main content area with dark background */}
@@ -53,7 +54,7 @@ const Layout = ({ children }) => {
         </div>
 
         {/* Right Sidebar */}
-        <div className="w-1/6 bg-[#2C2C2C] p-6 shadow-lg transition-transform transform hover:scale-105 duration-300">
+        <div className="w-1/6 bg-[#3E3D4D] p-6 shadow-inherit transition-transform transform hover:scale-105 duration-300">
           {/* Right Sidebar */}
           <RightSidebar />
         </div>
