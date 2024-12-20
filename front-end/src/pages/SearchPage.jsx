@@ -13,6 +13,8 @@ import {
 } from "@material-tailwind/react";
 import Navbar from '../components/Navigation';
 
+import backgroundImage from '../assets/spacex-VBNb52J8Trk-unsplash.jpg';
+
 const SearchPage = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -51,7 +53,12 @@ const SearchPage = () => {
   return (
     <>
       <Navbar /> {/* Navbar at the top */}
-      <section className="grid text-center h-screen items-center p-8 justify-center mt-20">
+      <section className="grid text-center h-screen items-center p-8 justify-center mt-0" 
+      style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}>
         <Card className="w-96">
           <CardHeader variant="gradient" color="gray" className="mb-4 grid h-28 place-items-center">
             <Typography variant="h3" color="white">Search</Typography>
