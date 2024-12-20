@@ -168,3 +168,11 @@ storybook-static/
 
 # Temporary files created by text editors or while editing
 Thumbs.db
+
+# Ignore AppData directory (if it's not already ignored)
+AppData/
+'AppData/'
+
+'Cookies/'
+'Documents/My Music/'
+
