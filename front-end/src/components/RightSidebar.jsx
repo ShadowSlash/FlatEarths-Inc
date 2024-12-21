@@ -7,7 +7,6 @@ const RightSidebar = () => {
   // -------------------------- Function to fetch a random joke from the backend API --------------
   const generateJoke = async () => {
     try {
-      // Make sure the URL matches the correct backend endpoint for jokes
       const response = await axios.get("http://localhost:8000/blogapp/generate-joke/");
 
       if (response.data.status) {
@@ -22,10 +21,12 @@ const RightSidebar = () => {
   };
 
   return (
-    <aside className="min-w-fit p-4 flex flex-col">
+    <aside className="min-w-full sm:max-w-md lg:max-w-lg p-4 flex flex-col">
       {/* Top of the Right hand SideBar: Friends List */}
       <div className="flex flex-col mb-6">
-        <h3 className="text-center font-bold text-xl text-[#17A9EE] mb-4">Friends List</h3>
+        <h3 className="text-center font-bold text-xl sm:text-2xl lg:text-3xl text-[#17A9EE] mb-4">
+          Friends List
+        </h3>
         <nav>
           <ul>
             <li className="hover:bg-[#49485a] p-2 rounded-lg">
@@ -58,7 +59,7 @@ const RightSidebar = () => {
 
       {/* AI Component: Joke generator */}
       <div className="flex flex-col mb-6">
-        <h3 className="text-center font-bold text-xl text-[#17A9EE] mb-4">
+        <h3 className="text-center font-bold text-xl sm:text-2xl lg:text-3xl text-[#17A9EE] mb-4">
           Generate a Conspiracy
         </h3>
         <button
