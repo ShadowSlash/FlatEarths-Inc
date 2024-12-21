@@ -209,3 +209,68 @@ def loginpost(request):
             # Invalid login credentials
             return render(request, 'login.html', {'error': 'Invalid credentials'})
     return render(request, 'login.html')  # Return login form if method is not POST
+
+
+
+###################################################################################################
+
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.contrib.auth.models import User  # Assuming you're using the default User model
+
+class UserProfileView(APIView):
+    permission_classes = [IsAuthenticated]  # Ensure the user is authenticated
+
+    def get(self, request):
+        user = request.user  # The user will be automatically populated from the JWT token
+        profile_data = {
+            "username": user.username,
+            "email": user.email,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "avatar": user.profile.avatar.url if hasattr(user, 'profile') else None  # If you have a profile model with avatar field
+        }
+        return Response(profile_data, status=status.HTTP_200_OK)
+    
+
+
+###########################################################Sidebar post requests 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Post
+from .serializers import PostSerializer
+from rest_framework import generics
+
+class PostListView(APIView):
+    def get(self, request):
+        posts = Post.objects.all()  # Fetch all posts
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data)
+
+class PostDetailView(APIView):
+    def get(self, request, id):
+        try:
+            post = Post.objects.get(id=id)  # Fetch a single post by ID
+            serializer = PostSerializer(post)
+            return Response(serializer.data)
+        except Post.DoesNotExist:
+            return Response({"detail": "Post not found."}, status=status.HTTP_404_NOT_FOUND)
+        
+class PostDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+class PostListView(generics.ListCreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+
+
+    #####################################################discord oauth2  ################################################
+
+
+
+

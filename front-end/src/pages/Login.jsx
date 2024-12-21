@@ -39,32 +39,34 @@ const LoginPage = () => {
 
   
   const onClickLogin = async (e) => {
-
     e.preventDefault();
     try {
       const response = await api.post('/account/login', {
         "username": userName,
         "password": password
       });
-
+  
       if (response.data.status) {
-
-        // Login the User to their Session using Context API
-        loginUser(userName, password);
-
-        console.log(response.data, 'Login clicked');
-        // Save the JWT Token to Local Storage
-        localStorage.setItem('authToken', response.data.data.token);
-
+        // Login successful, save user data and token to localStorage
+        const { username, avatar, token, expiration } = response.data.data;
+        localStorage.setItem('username', username);  // Store username
+        localStorage.setItem('avatar', avatar);  // Store avatar
+        localStorage.setItem('authToken', token);  // Store JWT token
+        localStorage.setItem('tokenExpiration', expiration);  // Store token expiration date
+        
+        // Also use Context API (if applicable) for state management
+        loginUser(username, token);
+  
+        // Navigate to dashboard
         navigate('/dashboard');
       } else {
         setError('Invalid credentials. Please try again.');
       }
-
     } catch (err) {
       setError('Invalid credentials. Please try again.');
     }
   };
+  
 
   return (
     <>

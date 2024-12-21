@@ -259,4 +259,76 @@ jokes = [
 def generate_joke(request):
     joke = random.choice(jokes)
     return JsonResponse({"status": True, "joke": joke}, status=200)
+
+
+
+####################################### Discord oauth2 functions#######################################################
+
+import requests
+from django.conf import settings
+from django.shortcuts import redirect
+from django.http import JsonResponse
+
+import requests
+from django.conf import settings
+from django.shortcuts import redirect
+from django.http import JsonResponse
+
+def discord_callback(request):
+    # Get the authorization code from the URL query parameters
+    code = request.GET.get('code')
+    
+    if not code:
+        # If there's no code, redirect to login or handle the error
+        return redirect('http://localhost:5173/dashboard/login')  # Frontend login page (React app)
+
+    # Exchange the code for an access token
+    token_url = 'https://discord.com/api/oauth2/token'
+    data = {
+        'client_id': settings.DISCORD_CLIENT_ID,
+        'client_secret': settings.DISCORD_CLIENT_SECRET,
+        'grant_type': 'authorization_code',
+        'code': code,
+        'redirect_uri': settings.DISCORD_REDIRECT_URI,
+    }
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    
+    # Send request to Discord's token endpoint
+    response = requests.post(token_url, data=data, headers=headers)
+    response_data = response.json()
+    
+    if 'access_token' in response_data:
+        access_token = response_data['access_token']
+        
+        # Fetch user information from Discord using the access token
+        user_info_url = 'https://discord.com/api/v10/users/@me'
+        user_headers = {
+            'Authorization': f'Bearer {access_token}'
+        }
+        user_response = requests.get(user_info_url, headers=user_headers)
+        user_data = user_response.json()
+        
+        # Get the user's Discord username and avatar
+        discord_username = user_data.get('username')
+        discord_avatar = user_data.get('avatar')
+        
+        # You can optionally save this user data in the database or create a new user
+        
+        # Construct the URL for the user's avatar (Discord avatar URLs are dynamic)
+        avatar_url = f'https://cdn.discordapp.com/avatars/{user_data["id"]}/{discord_avatar}.png' if discord_avatar else None
+        
+        # Redirect back to the React app (your frontend) with the access token, username, and avatar URL
+        return redirect(f'http://localhost:5173/dashboard?token={access_token}&username={discord_username}&avatar={avatar_url}')
+    
+    else:
+        # If the access token is missing or invalid, redirect to the login page on the frontend
+        return redirect('http://localhost:5173/dashboard/login')
+
+    
+
+# views.py
+
+
     

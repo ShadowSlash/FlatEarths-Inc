@@ -52,6 +52,15 @@ const NewBlogPage = () => {
                     {post.text}
                   </Typography>
 
+                  <Typography color="blue-gray" variant="">
+                    {post.name}
+                  </Typography>
+
+                  
+                  <Typography color="blue-gray" variant="">
+                    {post.name}
+                  </Typography>
+
                   <div className="flex justify-between  w-full hr p-3">
                     <div className="flex items-center gap-3 mt-2">
                       <Avatar

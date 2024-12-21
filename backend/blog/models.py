@@ -10,6 +10,8 @@ class Post(models.Model):
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
+    image = models.ImageField(upload_to='images/', null=True, blank=True)
+    
 
     def publish(self):
         self.published_date = timezone.now()
@@ -19,4 +21,19 @@ class Post(models.Model):
         return self.title
     
 
-    ##### Changes to allow Avatar changes ##############################
+    ##### Changes to allow Discord auth details, Avatar, etc ##############################
+
+class DiscordUser(models.Model):
+    discord_id = models.CharField(max_length=100, unique=True)
+    username = models.CharField(max_length=100)
+    discriminator = models.CharField(max_length=4)
+    avatar_url = models.URLField()
+
+    def __str__(self):
+        return f"{self.username}#{self.discriminator}"
+    
+
+    ############################### Images model ########
+
+
+    
