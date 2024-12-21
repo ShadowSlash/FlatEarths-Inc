@@ -71,7 +71,10 @@ const NewBlogPage = () =>{
         text: newPost.description,
         created_date: formatDate(new Date()),
         published_date: formatDate(new Date()),
-        author: 2
+        author: user.id,
+        name: user.name,
+
+        
       };
 
       console.log(data);

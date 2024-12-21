@@ -54,7 +54,7 @@ const LeftSidebar = () => {
                   >
                      <h1 className="text-lg font-semibold mb-2">{post.title}</h1> {/* The sidebar post title, mian text and publish date */}
         <p className="text-sm text-gray-300 mb-2">{post.text}</p> 
-        <span className="text-xs text-gray-200">{post.published_date}</span>
+        <span className="text-xs text-gray-200">{post.published_date}{post.name}</span>
                   </a>
                 </li>
               ))
@@ -102,9 +102,9 @@ const LeftSidebar = () => {
                     href={`/my-posts/${post.id}`}
                     className="block my-1 text-[#62DD97] hover:text-[#26D9FF] transition-colors duration-300"
                   >
-                    {post.title}
-                    {post.text}
-                    {post.published_date}
+                      <h1 className="text-lg font-semibold mb-2">{post.title}</h1> {/* The sidebar post title, mian text and publish date */}
+        <p className="text-sm text-gray-300 mb-2">{post.text}</p> 
+        <span className="text-xs text-gray-200">{post.published_date}{post.name}</span>
                   </a>
                 </li>
               ))
