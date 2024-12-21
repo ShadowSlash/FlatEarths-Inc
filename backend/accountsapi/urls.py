@@ -12,5 +12,7 @@ urlpatterns = [
     path('discord/login/', views.discord_login, name='discord_login'),
     path('discord/api/v1/callback/', views.discord_callback, name='discord_callback'),
     path('generate-joke/', views.generate_joke, name='generate_joke'),
+
+    
 ]
 

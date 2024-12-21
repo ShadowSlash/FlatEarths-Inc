@@ -119,9 +119,10 @@ export default function Navigation() {
               ) : (
                 <>
                   <Button
-                    variant="text"
+                    variant="gradient"
                     size="sm"
                     className="hidden lg:inline-block"
+                    color="blue"
                     onClick={() => navigate("/login")}
                   >
                     <span>Log In</span>
@@ -129,6 +130,7 @@ export default function Navigation() {
                   <Button
                     variant="gradient"
                     size="sm"
+                    color="blue"
                     className="hidden lg:inline-block"
                     onClick={() => navigate("/signup")}
                   >

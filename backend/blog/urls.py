@@ -13,11 +13,13 @@ urlpatterns = [
     path('discord/login/', views.discord_login, name='discord_login'),
     path('discord/api/v1/callback/', views.discord_callback, name='discord_callback'),
     path('generate-joke/', views.generate_joke, name='generate_joke'),
+    
 ]
 '''
 from django.urls import path
-
+from .views import UserProfileView
 from blog import views
+from .views import PostListView, PostDetailView
 
 urlpatterns = [
     path('', views.post_list, name='post_list'),
@@ -25,5 +27,8 @@ urlpatterns = [
     path('post/new/', views.post_new, name='post_new'),
     path('post/<int:id>/edit/', views.post_edit, name='post_edit'),
     path('generate-joke/', views.generate_joke, name='generate_joke'), #Add this path Noah so the api can find your generate jokes
-    
+    path('user/profile/', UserProfileView.as_view(), name='user-profile'),
+    path('posts/', views.PostListView.as_view(), name='post-list'),
+    path('posts/<int:id>/', views.PostDetailView.as_view(), name='post-detail'),
 ]
+   

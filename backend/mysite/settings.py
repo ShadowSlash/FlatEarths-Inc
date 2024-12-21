@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "blog",
     "drf_yasg",
     "rest_framework",
+    'rest_framework_simplejwt',
     "rest_framework.authtoken",
     "rest_framework_api_key",
     "corsheaders",
@@ -102,6 +103,7 @@ SWAGGER_SETTINGS = {
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     # to set api-key permissions globally for all endpoints
     # "DEFAULT_PERMISSION_CLASSES": [
